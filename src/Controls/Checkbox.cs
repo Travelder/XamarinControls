@@ -43,29 +43,32 @@ namespace IntelliAbb.Xamarin.Controls
 
         static Design DEFAULT_DESIGN => Design.Unified;
 
-        static Shape DEFAULT_SHAPE {
-            get 
+        static Shape DEFAULT_SHAPE
+        {
+            get
             {
                 Shape shape;
-                
+
                 switch (Device.RuntimePlatform)
                 {
                     case Device.Android:
                     case Device.UWP:
                         shape = Shape.Rectangle;
                         break;
-                    
+
                     case Device.iOS:
                     default:
                         shape = Shape.Circle;
                         break;
                 }
                 return shape;
-            } 
-        } 
+            }
+        }
 
-        static float DEFAULT_OUTLINE_WIDTH {
-            get {
+        static float DEFAULT_OUTLINE_WIDTH
+        {
+            get
+            {
                 float retVal;
 
                 switch (Device.RuntimePlatform)
@@ -75,7 +78,7 @@ namespace IntelliAbb.Xamarin.Controls
                         break;
                     case Device.UWP:
                         retVal = 2.5f;
-                        break;                        
+                        break;
                     case Device.Android:
                     default:
                         retVal = 6.0f;
@@ -85,14 +88,16 @@ namespace IntelliAbb.Xamarin.Controls
             }
         }
 
-        static double DEFAULT_SIZE {
-            get {
+        static double DEFAULT_SIZE
+        {
+            get
+            {
                 double retVal;
-                switch(Device.RuntimePlatform) 
+                switch (Device.RuntimePlatform)
                 {
                     case Device.UWP:
                         retVal = 20.0;
-                        break;                        
+                        break;
                     case Device.iOS:
                     case Device.Android:
                     default:
@@ -161,7 +166,8 @@ namespace IntelliAbb.Xamarin.Controls
                 var shape = Design == Design.Unified ? Shape : DEFAULT_SHAPE;
                 if (shape == Shape.Circle)
                     canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), checkfill);
-                else {
+                else
+                {
                     var cornerRadius = Design == Design.Native && Device.RuntimePlatform == Device.UWP ? 0 : OutlineWidth;
                     canvas.DrawRoundRect(OutlineWidth, OutlineWidth, imageInfo.Width - (OutlineWidth * 2), imageInfo.Height - (OutlineWidth * 2), cornerRadius, cornerRadius, checkfill);
                 }
@@ -174,7 +180,8 @@ namespace IntelliAbb.Xamarin.Controls
                     checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
                     checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
                     checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
-                } else
+                }
+                else
                 {
                     switch (Device.RuntimePlatform)
                     {
@@ -230,7 +237,8 @@ namespace IntelliAbb.Xamarin.Controls
                 var shape = Design == Design.Unified ? Shape : DEFAULT_SHAPE;
                 if (shape == Shape.Circle)
                     canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), outline);
-                else {                    
+                else
+                {
                     var cornerRadius = Design == Design.Native && Device.RuntimePlatform == Device.UWP ? 0 : OutlineWidth;
                     canvas.DrawRoundRect(OutlineWidth, OutlineWidth, imageInfo.Width - (OutlineWidth * 2), imageInfo.Height - (OutlineWidth * 2), cornerRadius, cornerRadius, outline);
                 }
@@ -353,7 +361,7 @@ namespace IntelliAbb.Xamarin.Controls
 
         static async void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if(!(bindable is Checkbox checkbox)) return;
+            if (!(bindable is Checkbox checkbox)) return;
             checkbox.IsCheckedChanged?.Invoke(checkbox, new TappedEventArgs((bool)newValue));
             await checkbox.AnimateToggle();
         }
